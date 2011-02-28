@@ -1,0 +1,84 @@
+/* MACHINE-GENERATED ! */
+
+frame ball {
+	__0: vec @((col-M/2-0.5)*e, (N/2-row-0.5)*f)
+	__1: vec .(-b/2, -b/2)
+	__2: vec __0(b/2, b/2)
+	rpad "$rname$col" __1 .
+}
+
+frame col_inner {
+	table
+	    { rname, row }
+	    { "A", 0 }
+	    { "B", 1 }
+	    { "C", 2 }
+	    { "D", 3 }
+	    { "E", 4 }
+	    { "F", 5 }
+	    { "G", 6 }
+	    { "H", 7 }
+	    { "J", 8 }
+	    { "K", 9 }
+	    { "L", 10 }
+	    { "M", 11 }
+
+	table
+	    { col }
+	    { 2 }
+	    { 3 }
+	    { 7 }
+	    { 8 }
+
+	frame ball @
+}
+
+frame col_outer {
+	table
+	    { rname, row }
+	    { "A", 0 }
+	    { "B", 1 }
+	    { "C", 2 }
+	    { "D", 3 }
+	    { "E", 4 }
+	    { "F", 5 }
+
+	table
+	    { col }
+	    { 1 }
+	    { 9 }
+
+	frame ball @
+}
+
+package "60fbga_ddr"
+unit mm
+set N = 12
+
+set M = 9
+
+set E = 10mm
+
+set D = 12.5mm
+
+set e = 0.8mm
+
+set f = 1mm
+
+set b = 0.4mm
+
+set silk = 0.1mm
+
+__0: vec @(-E/2, -D/2)
+__1: vec .(E, D)
+rect __0 . silk
+__2: vec @(-4.5mm, 5.8mm)
+__3: vec .(0.2mm, 0mm)
+circ __2 . silk
+frame col_outer @
+frame col_inner @
+measx __0 -> ball.__0 6mm
+measy __1 >> __0 1mm
+measx __1 << ball.__0
+measy ball.__0 -> ball.__0 1mm
+measy __1 << ball.__0 0.4mm

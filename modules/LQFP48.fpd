@@ -1,0 +1,106 @@
+/* MACHINE-GENERATED ! */
+
+frame pad_vert {
+	tl: vec @(-D/2, C/2)
+	lr: vec .(D, -C)
+	pad "$name" tl .
+}
+
+frame pad_horiz {
+	tl: vec @(-C/2, D/2)
+	lr: vec .(C, -D)
+	pad "$name" tl .
+}
+
+frame pads_t {
+	set pos = x*P
+
+	set name = nPin-x
+
+	loop x = 0, nPin/4-1
+
+	__0: vec @(pos-nPin*P/8+P/2, 0mm)
+	frame pad_vert .
+}
+
+frame pads_b {
+	set pos = x*P
+
+	set name = nPin/4+1+x
+
+	loop x = 0, nPin/4-1
+
+	__0: vec @(pos-nPin*P/8+P/2, 0mm)
+	frame pad_vert .
+}
+
+frame pads_l {
+	set pos = y*P
+
+	set name = nPin/4-y
+
+	loop y = 0, nPin/4-1
+
+	__0: vec @(0mm, pos-nPin*P/8+P/2)
+	frame pad_horiz .
+}
+
+frame pads_r {
+	set pos = y*P
+
+	set name = nPin/2+1+y
+
+	loop y = 0, nPin/4-1
+
+	__0: vec @(0mm, pos-nPin*P/8+P/2)
+	frame pad_horiz .
+}
+
+frame pads {
+	__0: vec @(C/2-Ax/2, 0mm)
+	frame pads_l .
+	__1: vec @(0mm, Ay/2-C/2)
+	frame pads_t .
+	__2: vec @(Ax/2-C/2, 0mm)
+	frame pads_r .
+	__3: vec @(0mm, C/2-Ay/2)
+	frame pads_b .
+}
+
+package "LQFP48"
+unit mm
+set pin_extend = 1mm
+
+set silk = 0.1mm
+
+set nPin = 48
+
+set Ax = 7mm+2*pin_extend
+
+set Ay = 7mm+2*pin_extend
+
+set C = pin_extend-0.2mm
+
+set D = 0.25mm
+
+set P = 0.5mm
+
+__0: vec @(pin_extend-Ax/2, Ay/2-pin_extend)
+__1: vec @(Ax/2-pin_extend, pin_extend-Ay/2)
+rect __0 . silk
+__2: vec @(-4mm, 4mm)
+__3: vec .(0.2mm, 0mm)
+circ __2 . silk
+frame pads @
+measx __0 >> __1 1.1mm
+measx pad_horiz.tl >> pad_horiz.lr 8.7mm
+measy pad_vert.lr >> pad_vert.tl -8.7mm
+measx pad_horiz.lr -> pad_horiz.tl -1.7mm
+measy pad_vert.tl -> pad_vert.lr 1.7mm
+measy pad_vert.lr -> pad_vert.tl 1.95mm
+measx pad_horiz.tl -> pad_horiz.lr -1.95mm
+measy __1 >> __0 -0.9mm
+measy pads_r.__0 -> pads_r.__0 -0.65mm
+measy pad_horiz.lr -> pad_horiz.tl 1mm
+measx pads_t.__0 -> pads_t.__0 0.7mm
+measx pad_vert.tl -> pad_vert.lr -1mm

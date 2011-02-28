@@ -1,0 +1,67 @@
+/* MACHINE-GENERATED ! */
+
+frame pad_n {
+	set name = 2*Nx-nx
+
+	nc: vec @(pos, Oy/2-Of)
+	ll: vec .(-Pw/2, 0mm)
+	ur: vec .(Pw, -L)
+	pad "$name" ll .
+}
+
+frame pad_s {
+	set name = nx+1
+
+	sc: vec @(pos, -Oy/2+Of)
+	ll: vec .(-Pw/2, 0mm)
+	ur: vec .(Pw, L)
+	pad "$name" ll .
+}
+
+frame pads_x {
+	set pos = (nx-Nx/2+0.5)*e
+
+	loop nx = 0, Nx-1
+
+	frame pad_s @
+	frame pad_n @
+}
+
+frame pads {
+	set Nx = 3
+
+	frame pads_x @
+}
+
+frame outline {
+	ll: vec @(-Ox/2, -Oy/2)
+	ur: vec @(Ox/2, Oy/2)
+	rect ll . silk
+}
+
+package "MLP6"
+unit mm
+set Ox = 1.5mm
+
+set Oy = 1.5mm
+
+set e = 0.5mm
+
+set silk = 0.1mm
+
+set Pw = 0.3mm
+
+set L = 0.52mm
+
+set Of = 0.1mm
+
+__2: vec @(-0.9mm, -0.9mm)
+__3: vec .(0.1mm, 0mm)
+circ __2 . silk
+frame outline @
+frame pads @
+measx pad_n.ll >> pad_n.ur 40mil
+measx pad_n.nc >> pad_n.nc 20mil
+measx pad_n.nc -> pad_n.nc 10mil
+measx outline.ll >> outline.ur Oy+60mil
+measy outline.ll >> outline.ur 20mil

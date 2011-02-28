@@ -1,0 +1,14 @@
+#EXAMPLE 1: Creation of a KICAD component of a XILINX FPGA using the PARTGen utility 
+
+#  Runing the Xilinx PARTGen utility
+partgen -v  xc6slx75fgg484
+
+#  Generate the KICAD library 
+./xil2kc.py --pkg-file=samples/xc6slx75fgg484.pkg -o xc6slx75fgg484.lib
+
+#EXAMPLE 2:  Creation of a KICAD component library from IBIS file
+#EXAMPLE 2.a
+./ibis2kc.py --ibis-file=samples/micron_ddr2_2Gb.ibs --output-file=micron_ddr2_2Gb.lib --vcc-prefix=VDD --gnd-prefix=VSS
+
+#EXAMPLE 2.b
+./ibis2kc.py --ibis-file=samples/k8001.ibs --output-file=k8001.lib --vcc-prefix=VDD --gnd-prefix=GND

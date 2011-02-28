@@ -1,0 +1,80 @@
+/* MACHINE-GENERATED ! */
+
+frame pad_n {
+	set name = 2*Nx-nx
+
+	nc: vec @(pos, Oy/2-Of)
+	ll: vec .(-Pw/2, 0mm)
+	ur: vec .(Pw, -L)
+	pad "$name" ll .
+}
+
+frame pad_s {
+	set name = nx+1
+
+	sc: vec @(pos, -Oy/2+Of)
+	ll: vec .(-Pw/2, 0mm)
+	ur: vec .(Pw, L)
+	pad "$name" ll .
+}
+
+frame pads_x {
+	set pos = (nx-Nx/2+0.5)*e
+
+	loop nx = 0, Nx-1
+
+	frame pad_s @
+	frame pad_n @
+}
+
+frame pads {
+	set Nx = 3
+
+	frame pads_x @
+}
+
+frame center {
+	set Cx = 1.7mm
+
+	set Cy = 0.95mm
+
+	ll: vec @(-Cx/2, -Cy/2)
+	ur: vec @(Cx/2, Cy/2)
+	pad "PAD" ll .
+}
+
+frame outline {
+	ll: vec @(-Ox/2, -Oy/2)
+	ur: vec @(Ox/2, Oy/2)
+	rect ll . silk
+}
+
+package "UDFN6"
+unit mm
+
+set Ox = 2.3mm
+
+set Oy = 2.3mm
+
+set e = 0.65mm
+
+set silk = 0.1mm
+
+set Pw = 0.4mm
+
+set L = 0.47mm
+
+set Of = 0.05mm
+
+__2: vec @(-1.3mm, -1.3mm)
+__3: vec .(0.1mm, 0mm)
+circ __2 . silk
+frame outline @
+frame center @
+frame pads @
+measx pad_n.ll >> pad_n.ur 60mil
+measx pad_n.nc >> pad_n.nc 40mil
+measx pad_n.nc -> pad_n.nc 20mil
+measx outline.ll >> outline.ur Oy+80mil
+measy outline.ll >> outline.ur 20mil
+measy center.ur >> center.ll 20mil
